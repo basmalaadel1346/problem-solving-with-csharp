@@ -1,15 +1,16 @@
-# Digit Frequency Analyzer
+# Digit Analyzer
 
 ## Overview
 
-A C# console application that analyzes the digits of an integer using arithmetic operations only.
+A C# console application that performs multiple digit-based analyses on an integer using arithmetic operations only.
 
-The application provides an interactive menu that allows the user to:
+The application provides an interactive menu where users can:
 
 - Calculate the frequency of each digit.
-- Display the unique digits contained in the number.
+- Display the unique digits in a number.
+- Check whether a number is a palindrome.
 
-The solution supports positive numbers, negative numbers, and zero without converting the number to a string.
+The implementation avoids converting numbers to strings and demonstrates modular programming with reusable methods.
 
 ---
 
@@ -19,9 +20,10 @@ The solution supports positive numbers, negative numbers, and zero without conve
 - Input validation
 - Supports positive and negative integers
 - Correctly handles zero
-- Calculates digit frequencies
-- Displays unique digits
-- Modular and reusable methods
+- Calculate digit frequencies
+- Display unique digits
+- Check if a number is a palindrome
+- Modular and reusable design
 
 ---
 
@@ -30,7 +32,8 @@ The solution supports positive numbers, negative numbers, and zero without conve
 ```text
 1. Calculate Digit Frequency
 2. Show Digits
-3. Exit
+3. Check Palindrome
+4. Exit
 ```
 
 ---
@@ -41,83 +44,97 @@ The solution supports positive numbers, negative numbers, and zero without conve
 
 ```text
 Enter a number:
--120023
+12233321
 ```
 
-### Option 1 – Calculate Digit Frequency
+### Option 1
 
 ```text
-Digit 0 appears 2 times.
-Digit 1 appears 1 times.
-Digit 2 appears 2 times.
-Digit 3 appears 1 times.
+Digit 1 appears 2 times.
+Digit 2 appears 3 times.
+Digit 3 appears 3 times.
 ```
 
-### Option 2 – Show Digits
+### Option 2
 
 ```text
 Digits in the number:
-0, 1, 2, 3
+1, 2, 3
+```
+
+### Option 3
+
+```text
+The number is a palindrome.
 ```
 
 ---
 
 ## Solution Approach
 
-### Calculate Digit Frequency
+### Digit Frequency
 
-1. Convert the number to its absolute value.
-2. Create an array of size 10 to store digit frequencies.
-3. Extract each digit using the modulus operator (`%`).
-4. Increment the corresponding frequency.
-5. Remove the last digit using integer division (`/`).
-6. Repeat until all digits have been processed.
+- Convert the number to its absolute value.
+- Extract digits using `% 10`.
+- Store occurrences in an array of size 10.
+- Continue until all digits are processed.
 
-A `do...while` loop is used so that the value `0` is handled correctly.
+### Unique Digits
 
-### Display Unique Digits
+- Iterate through the frequency array.
+- Return every digit whose frequency is greater than zero.
 
-Iterate through the frequency array and collect every digit whose frequency is greater than zero.
+### Palindrome Check
+
+- Extract all digits into a collection.
+- Compare symmetric elements from both ends.
+- If every pair matches, the number is a palindrome.
 
 ---
 
-## Algorithm
+## Algorithms
+
+### Calculate Digit Frequency
 
 ```text
-Read number
-
 number = abs(number)
-
-frequency[10] = {0}
 
 do
     digit = number % 10
     frequency[digit]++
     number /= 10
 while number != 0
+```
 
-For each digit from 0 to 9
-    if frequency[digit] > 0
-        output digit
+### Check Palindrome
+
+```text
+Extract all digits
+
+left = 0
+right = last index
+
+while left < right
+    if digits[left] != digits[right]
+        return false
+
+    left++
+    right--
+
+return true
 ```
 
 ---
 
 ## Complexity
 
-### CalculateDigitFrequency()
+| Operation | Time | Space |
+|-----------|------|-------|
+| Calculate Digit Frequency | O(d) | O(1) |
+| Get Unique Digits | O(10) → O(1) | O(1) |
+| Check Palindrome | O(d) | O(d) |
 
-- **Time Complexity:** `O(d)`
-- **Space Complexity:** `O(1)`
-
-Where `d` is the number of digits.
-
-### GetUniqueDigits()
-
-- **Time Complexity:** `O(10)` → `O(1)`
-- **Space Complexity:** `O(1)`
-
-The frequency array always contains exactly 10 elements.
+Where **d** is the number of digits.
 
 ---
 
@@ -126,9 +143,12 @@ The frequency array always contains exactly 10 elements.
 | Method | Responsibility |
 |---------|----------------|
 | `AskForNumber()` | Reads and validates user input |
-| `CalculateDigitFrequency()` | Calculates the frequency of each digit |
+| `CalculateDigitFrequency()` | Calculates digit frequencies |
 | `PrintDigitFrequency()` | Displays digit frequencies |
-| `GetUniqueDigits()` | Returns the distinct digits found in the number |
+| `GetUniqueDigits()` | Returns the distinct digits in the number |
+| `GetAllDigits()` | Extracts all digits from the number |
+| `IsNumberPalindrome()` | Determines whether a number is a palindrome |
+| `ShowPalindromeResult()` | Displays the palindrome result |
 | `ShowDigits()` | Displays the unique digits |
 | `GetMenuChoice()` | Reads and validates the selected menu option |
 | `HandleMenuChoice()` | Executes the selected operation |
@@ -141,9 +161,11 @@ The frequency array always contains exactly 10 elements.
 - Lists
 - Enums
 - Methods
+- Loops
 - Input validation
 - Arithmetic operators (`%`, `/`)
 - Menu-driven console applications
+- Palindrome algorithm
 - Modular programming
 - Time complexity analysis
 
@@ -154,6 +176,6 @@ The frequency array always contains exactly 10 elements.
 - Display the most frequent digit.
 - Display the least frequent digit.
 - Count even and odd digits.
-- Display digits sorted by frequency.
-- Generate a histogram of digit frequencies.
+- Find the largest and smallest digit.
+- Calculate the sum of digits.
 - Add unit tests.
