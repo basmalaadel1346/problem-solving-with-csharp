@@ -20,11 +20,33 @@ namespace ReversedNumber
             }
             return reversed;
         }
-        static void Main(string[] args)
+        public static bool IsPalindrome(int number, int reversedNumber)
         {
-            int reversedNumber = ReverseNumber(number);
+            if(number == reversedNumber)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static void PrintResult(int number, int reversedNumber)
+        {
             Console.WriteLine($"Original Number: {number}");
             Console.WriteLine($"Reversed Number: {reversedNumber}");
+            if (IsPalindrome(number, reversedNumber))
+            {
+                Console.WriteLine($"{number} is a palindrome.");
+            }
+            else
+            {
+                Console.WriteLine($"{number} is not a palindrome.");
+            }
+        }
+        static void Main(string[] args)
+        {
+            PrintResult(number, ReverseNumber(number));
             Console.ReadKey();
         }
     }

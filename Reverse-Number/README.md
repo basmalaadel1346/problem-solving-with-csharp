@@ -1,81 +1,67 @@
-# Reverse Number
+# Reverse Number & Palindrome Check (C#)
 
-## Problem
+## Overview
 
-Write a C# console application that reverses the digits of an integer using arithmetic operations without converting the number to a string.
+This console application reverses an integer using arithmetic operations and determines whether the original number is a palindrome.
+
+The implementation avoids converting the number to a string and uses only mathematical operations.
+
+---
+
+## Features
+
+- Reverse an integer mathematically
+- Check whether a number is a palindrome
+- Display the original number
+- Display the reversed number
+- Print the palindrome check result
 
 ---
 
 ## Example
 
-### Input
+Input:
 
-```text
-12345
-```
+12321
 
-### Output
+Output:
 
-```text
-54321
-```
-
----
-
-## Solution Approach
-
-The algorithm reverses the number digit by digit:
-
-1. Extract the last digit using the modulus operator (`%`).
-2. Append the extracted digit to the reversed number.
-3. Remove the last digit from the original number using integer division (`/`).
-4. Repeat until the original number becomes zero.
+Original Number: 12321
+Reversed Number: 12321
+12321 is a palindrome.
 
 ---
 
 ## Algorithm
 
-```text
-reversed = 0
+### Reverse Number
 
-while number != 0
-    digit = number % 10
-    reversed = reversed * 10 + digit
-    number = number / 10
-```
+1. Extract the last digit using `% 10`.
+2. Append it to the reversed number.
+3. Remove the last digit using `/ 10`.
+4. Repeat until the number becomes `0`.
+
+### Palindrome Check
+
+- Reverse the number.
+- Compare the reversed value with the original number.
+- If both are equal, the number is a palindrome.
 
 ---
 
 ## Complexity
 
-- **Time Complexity:** `O(d)`
-- **Space Complexity:** `O(1)`
+| Operation | Time | Space |
+|----------|------|-------|
+| Reverse Number | O(d) | O(1) |
+| Palindrome Check | O(d) | O(1) |
 
-Where `d` is the number of digits in the input number.
-
----
-
-## Concepts Used
-
-- Loops (`while`)
-- Arithmetic operators (`%`, `/`)
-- Integer manipulation
-- Variables
-- Methods
+> **d** is the number of digits.
 
 ---
 
-## Notes
+## Technologies
 
-- The solution avoids converting the number to a string.
-- Uses constant extra memory.
-- Efficient for integers of any valid size within the `int` range.
-
----
-
-## Future Improvements
-
-- Read the number from user input.
-- Support negative numbers.
-- Detect integer overflow when reversing very large numbers.
-- Add automated unit tests.
+- C#
+- .NET
+- Console Application
