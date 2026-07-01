@@ -8,6 +8,12 @@ namespace DigitFrequency
 {
     internal class Program
     {
+        public enum MenuChoice
+        {
+            CalculateDigitFrequency = 1,
+            ShowDigits = 2,
+            Exit = 3
+        }
         public static int AskForNumber(string prompt)
         {
             Console.WriteLine(prompt);
@@ -42,9 +48,66 @@ namespace DigitFrequency
                 }
             }
         }
+        public static List<int> GetUniqueDigits(IEnumerable<int> digitFrequency)
+        {
+            List<int> digits = new List<int>();
+            int i = 0;
+            foreach (var freq in digitFrequency)
+            {
+                if (freq > 0) digits.Add(i);
+                i++;
+            }
+            return digits;
+        }
+        public static void ShowDigits(IEnumerable<int> digits) => Console.WriteLine("Digits in the number: " + string.Join(", ", digits));
+        
+        public static MenuChoice GetMenuChoice()
+        {
+            Console.WriteLine("Choose an option:");
+            Console.WriteLine("1. Calculate Digit Frequency");
+            Console.WriteLine("2. Show Digits");
+            Console.WriteLine("3. Exit");
+            while (true)
+            {
+                if (Enum.TryParse(Console.ReadLine(), out MenuChoice choice)
+                    && Enum.IsDefined(typeof(MenuChoice), choice))
+                {
+                    return choice;
+                }
+
+                Console.WriteLine("Invalid choice.");
+            }
+        }
+        public static void HandleMenuChoice(MenuChoice choice)
+        {
+            int number = AskForNumber("Enter a number: ");
+            int[] digitFrequency = CalculateDigitFrequency(number);
+            
+                switch (choice)
+                {
+                    case MenuChoice.CalculateDigitFrequency:
+                        PrintDigitFrequency(digitFrequency);
+                        break;
+                    case MenuChoice.ShowDigits:
+                        ShowDigits(GetUniqueDigits(digitFrequency));
+                        break;
+                    
+                }
+            Console.WriteLine(new string('-', 30));
+        }
+        
         static void Main(string[] args)
         {
-            PrintDigitFrequency(CalculateDigitFrequency(AskForNumber("Enter a number: ")));
+            while (true)
+            {
+                MenuChoice choice = GetMenuChoice();
+                if (choice == MenuChoice.Exit)
+                {
+                    break;
+                }
+                HandleMenuChoice(choice);
+            }
+            
         }
     }
 }
