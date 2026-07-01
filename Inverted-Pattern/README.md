@@ -1,29 +1,34 @@
-# Inverted Number Pattern (C#)
+# Number Patterns (C#)
 
 ## Overview
 
-This console application prints an inverted number pattern based on a user-provided integer.
+This console application prints two common number patterns using nested loops:
 
-Each row displays the current row number repeated a number of times equal to its value, starting from the input number down to 1.
+- Inverted Number Pattern
+- Ascending Number Pattern
+
+The program reads a positive integer from the user and displays both patterns.
 
 ---
 
 ## Features
 
-- Read an integer from the user
-- Validate user input
-- Generate an inverted number pattern
+- Input validation
+- Inverted number pattern
+- Ascending number pattern
 - Simple nested loop implementation
 
 ---
 
 ## Example
 
-Input:
+Input
 
 5
 
-Output:
+Output
+
+Inverted Pattern
 
 55555
 4444
@@ -31,24 +36,38 @@ Output:
 22
 1
 
+Number Pattern
+
+1
+22
+333
+4444
+55555
+
 ---
 
-## Algorithm
+## Algorithms
 
-1. Read a valid integer from the user.
-2. Start an outer loop from the input number down to `1`.
-3. For each row, print the current number repeatedly using an inner loop.
-4. Move to the next line after each row.
+### Inverted Pattern
+
+Starts from `N` and decreases to `1`.
+
+Each row prints the current number exactly that many times.
+
+### Number Pattern
+
+Starts from `1` and increases to `N`.
+
+Each row prints the current number exactly that many times.
 
 ---
 
 ## Complexity
 
-| Operation | Time | Space |
-|----------|------|-------|
-| Pattern Generation | O(n²) | O(1) |
-
-Where **n** is the input number.
+| Pattern | Time | Space |
+|---------|------|-------|
+| Inverted Pattern | O(n²) | O(1) |
+| Number Pattern | O(n²) | O(1) |
 
 ---
 

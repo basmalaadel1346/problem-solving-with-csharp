@@ -37,9 +37,26 @@ namespace Invertpattern
                 Console.WriteLine();
             }
         }
+        public static void PrintNumberPattern(int number)
+        {
+            for(int i = 1;  i <= number; i++)
+            {
+                for (int j = 1; j <= i; j++)
+                {
+                    Console.Write(i);
+                }
+                Console.WriteLine();
+
+            }
+        }
         static void Main(string[] args)
         {
-            PrintInvertedPattern(GetNumber("Enter a number: "));
+            int number = GetNumber("Enter a number: ");
+            Console.WriteLine($"{"Inverted Pattern",70}");
+            PrintInvertedPattern(number);
+            Console.WriteLine($"{"Number Pattern",70}");
+
+            PrintNumberPattern(number);
         }
     }
 }
