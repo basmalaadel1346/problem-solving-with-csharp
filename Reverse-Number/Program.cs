@@ -12,25 +12,15 @@ namespace ReversedNumber
         public static int ReverseNumber(int number)
         {
             int reversed = 0;
-            while (number != 0)
+            do
             {
                 int lastDigit = number % 10;
-                reversed= reversed*10 + lastDigit;
+                reversed = reversed * 10 + lastDigit;
                 number /= 10;
-            }
+            } while (number != 0);
             return reversed;
         }
-        public static bool IsPalindrome(int number, int reversedNumber)
-        {
-            if(number == reversedNumber)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        public static bool IsPalindrome(int originalNumber, int reversedNumber) => originalNumber == reversedNumber;
         public static void PrintResult(int number, int reversedNumber)
         {
             Console.WriteLine($"Original Number: {number}");
