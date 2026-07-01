@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Invertpattern
+namespace patterns
 {
     internal class Program
     {
@@ -14,13 +14,13 @@ namespace Invertpattern
             {
                 Console.WriteLine(prompt);
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out int number) && number > 0)
+                if (int.TryParse(input, out int number) && number > 0 && number <= 26)
                 {
                     return number;
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                    Console.WriteLine("Invalid input. Please enter a valid number between 1 and 26.");
                 }
 
 
@@ -76,13 +76,13 @@ namespace Invertpattern
             int number = GetNumber("Enter a number: ");
             Console.WriteLine($"{"Inverted Pattern",70}");
             PrintInvertedPattern(number);
-            Console.WriteLine("\n");
+            Console.WriteLine();
             Console.WriteLine($"{"Number Pattern",70}");
             PrintNumberPattern(number);
-            Console.WriteLine("\n");
+            Console.WriteLine();
             Console.WriteLine($"{"Inverted Letter Pattern",70}");
             PrintInvertedLetterPattern(number);
-            Console.WriteLine("\n");
+            Console.WriteLine();
             Console.WriteLine($"{"Letter Pattern",70}");
             PrintLetterPattern(number);
         }
