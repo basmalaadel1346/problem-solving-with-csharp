@@ -14,7 +14,7 @@ namespace Invertpattern
             {
                 Console.WriteLine(prompt);
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out int number))
+                if (int.TryParse(input, out int number) && number > 0)
                 {
                     return number;
                 }
@@ -49,14 +49,42 @@ namespace Invertpattern
 
             }
         }
+        public static void PrintInvertedLetterPattern(int number)
+        {
+            for (char letter = (char)('A' + number - 1); letter >= 'A'; letter--)
+            {
+                for(int j=1; j<=letter - 'A' + 1; j++)
+                {
+                    Console.Write(letter);
+                }
+                Console.WriteLine();
+            }
+        }
+        public static void PrintLetterPattern(int number)
+        {
+            for (char letter = 'A'; letter < 'A' + number; letter++)
+            {
+                for (int j = 1; j <= letter - 'A' + 1; j++)
+                {
+                    Console.Write(letter);
+                }
+                Console.WriteLine();
+            }
+        }
         static void Main(string[] args)
         {
             int number = GetNumber("Enter a number: ");
             Console.WriteLine($"{"Inverted Pattern",70}");
             PrintInvertedPattern(number);
+            Console.WriteLine("\n");
             Console.WriteLine($"{"Number Pattern",70}");
-
             PrintNumberPattern(number);
+            Console.WriteLine("\n");
+            Console.WriteLine($"{"Inverted Letter Pattern",70}");
+            PrintInvertedLetterPattern(number);
+            Console.WriteLine("\n");
+            Console.WriteLine($"{"Letter Pattern",70}");
+            PrintLetterPattern(number);
         }
     }
 }

@@ -1,78 +1,70 @@
-# Number Patterns (C#)
+# Number & Letter Patterns
 
-## Overview
-
-This console application prints two common number patterns using nested loops:
-
-- Inverted Number Pattern
-- Ascending Number Pattern
-
-The program reads a positive integer from the user and displays both patterns.
-
----
+A C# console application that prints different numeric and alphabetic patterns using nested loops.
 
 ## Features
 
-- Input validation
-- Inverted number pattern
-- Ascending number pattern
-- Simple nested loop implementation
-
----
+- Print inverted number pattern
+- Print ascending number pattern
+- Print inverted letter pattern
+- Print ascending letter pattern
+- Validates user input
+- Uses reusable methods for each pattern
 
 ## Example
 
-Input
+Input:
 
+```
 5
+```
 
-Output
+Output:
 
-Inverted Pattern
+### Inverted Number Pattern
 
+```
 55555
 4444
 333
 22
 1
-
-Number Pattern
-
-1
-22
-333
-4444
-55555
-
----
-
-## Algorithms
-
-### Inverted Pattern
-
-Starts from `N` and decreases to `1`.
-
-Each row prints the current number exactly that many times.
+```
 
 ### Number Pattern
 
-Starts from `1` and increases to `N`.
+```
+1
+22
+333
+4444
+55555
+```
 
-Each row prints the current number exactly that many times.
+### Inverted Letter Pattern
 
----
+```
+EEEEE
+DDDD
+CCC
+BB
+A
+```
 
-## Complexity
+### Letter Pattern
 
-| Pattern | Time | Space |
-|---------|------|-------|
-| Inverted Pattern | O(n²) | O(1) |
-| Number Pattern | O(n²) | O(1) |
+```
+A
+BB
+CCC
+DDDD
+EEEEE
+```
 
----
+## Concepts Practiced
 
-## Technologies
-
-- C#
-- .NET
-- Console Application
+- Nested loops
+- Character arithmetic
+- Input validation
+- Method decomposition
+- Pattern printing
