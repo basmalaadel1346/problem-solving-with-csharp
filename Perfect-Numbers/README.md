@@ -2,49 +2,60 @@
 
 ## Problem
 
-Write a C# program that reads a positive integer from the user and determines whether it is a **Perfect Number**.
+Build a C# console application that checks whether a number is a **Perfect Number** or finds all perfect numbers within a specified range.
 
-A **Perfect Number** is a positive integer that is equal to the sum of all of its **proper divisors** (excluding the number itself).
-
----
-
-## Example
-
-### Input
-
-```text
-28
-```
-
-### Output
-
-```text
-Is 28 a Perfect number? : True
-```
+A **Perfect Number** is a positive integer equal to the sum of its proper divisors (excluding the number itself).
 
 ---
 
 ## Features
 
-- Validates user input.
-- Efficiently finds all proper divisors using the square root optimization.
-- Calculates the sum of all proper divisors.
-- Determines whether the number is perfect.
-- Separates validation, divisor calculation, summation, and output into independent methods.
+- Check whether a single number is perfect.
+- Find all perfect numbers within a user-defined range.
+- Interactive console menu.
+- Robust input validation.
+- Efficient divisor search using the square root optimization (`O(√n)`).
+- Clean separation between input, business logic, and presentation.
 
 ---
 
-## Concepts Used
+## Menu
 
-- Methods
-- Lists
-- IEnumerable
-- Input Validation
-- Mathematical Algorithms
-- Square Root Optimization
-- LINQ (`Sum`)
-- Clean Code
-- Separation of Concerns
+```text
+1. Check if a number is perfect
+2. Find all perfect numbers in a range
+3. Exit
+```
+
+---
+
+## Example
+
+### Single Number
+
+```text
+Choose an option:
+1
+
+Enter a positive integer: 28
+
+Is 28 a Perfect number? : True
+```
+
+### Range
+
+```text
+Choose an option:
+2
+
+Start: 1
+End: 1000
+
+Perfect numbers:
+6
+28
+496
+```
 
 ---
 
@@ -52,28 +63,29 @@ Is 28 a Perfect number? : True
 
 | Method | Responsibility |
 |---------|----------------|
-| `AskUserForNumber()` | Reads and validates user input. |
-| `IsDivisor()` | Checks whether a number is divisible by another. |
-| `FindAllDivisors()` | Finds all proper divisors using the √n optimization. |
+| `ShowMenu()` | Displays the application menu. |
+| `HandleMenuChoice()` | Executes the selected menu option. |
+| `AskUserForNumber()` | Reads and validates a positive integer. |
+| `AskUserForRange()` | Reads and validates a numeric range. |
+| `IsDivisor()` | Checks whether a number divides another exactly. |
+| `FindAllDivisors()` | Finds all proper divisors using √n optimization. |
 | `SumOfDivisors()` | Calculates the sum of all divisors. |
-| `IsPerfectNumber()` | Determines whether the number is perfect. |
-| `PrintPerfectNumberCheck()` | Displays the result to the user. |
+| `IsPerfectNumber()` | Determines whether a number is perfect. |
+| `FindAllPerfectNumbersInRange()` | Finds all perfect numbers within a range. |
+| `PrintPerfectNumberCheck()` | Displays the result for a single number. |
+| `PrintPerfectNumbersInRange()` | Displays all perfect numbers in the range. |
 
 ---
 
 ## Algorithm
 
-To find all proper divisors:
+### Checking a Perfect Number
 
-1. Iterate from **1** to **√n**.
-2. If `i` divides the number:
-   - Add `i`.
-   - Compute the paired divisor `number / i`.
-   - Add the paired divisor if:
-     - it is different from `i`
-     - it is not the number itself.
-3. Sum all collected divisors.
-4. Compare the sum with the original number.
+1. Find all proper divisors.
+2. Sum the divisors.
+3. Compare the sum with the original number.
+
+To improve performance, divisor searching iterates only up to **√n**. Whenever a divisor is found, its paired divisor (`n / i`) is also considered.
 
 ---
 
@@ -84,36 +96,44 @@ To find all proper divisors:
 - **Time:** `O(√n)`
 - **Space:** `O(d)`
 
-Where **d** is the number of proper divisors.
+Where `d` is the number of proper divisors.
 
-### SumOfDivisors()
-
-- **Time:** `O(d)`
-- **Space:** `O(1)`
-
-### Overall
+### IsPerfectNumber()
 
 - **Time:** `O(√n)`
 - **Space:** `O(d)`
 
+### FindAllPerfectNumbersInRange()
+
+If the range contains **N** numbers:
+
+- **Time:** `O(N × √M)`
+
+Where `M` is the largest number in the range.
+
+- **Space:** `O(d)`
+
 ---
 
-## Engineering Notes
+## Concepts Used
 
-- Used the **square root optimization** to reduce unnecessary divisor checks.
-- Stored the divisors in a `List<int>` to make them reusable by other methods.
-- Accepted `IEnumerable<int>` in `SumOfDivisors()` to reduce coupling.
-- Followed the **Single Responsibility Principle (SRP)** by separating validation, divisor generation, summation, business logic, and presentation.
+- Methods
+- Enums
+- Lists
+- IEnumerable
+- LINQ (`Sum`)
+- Tuples
+- Input Validation
+- Square Root Optimization
+- Clean Code
+- Separation of Concerns
 
 ---
 
-## Possible Improvements
+## Future Improvements
 
-- Display all divisors before printing the result.
-- Support checking multiple numbers in a single execution.
-- Benchmark different divisor-finding algorithms.
-- Add unit tests for edge cases.
-
-## How to Run
-- Ensure you have the [.NET SDK](https://dotnet.microsoft.com/download) installed.
-- Clone the repository and run `dotnet run` in the project directory.
+- Sort divisors before displaying them.
+- Display the divisors of each perfect number.
+- Support repeated execution without restarting the application.
+- Export results to a text file.
+- Add unit tests.

@@ -8,6 +8,12 @@ namespace FindPerfectNumber
 {
     internal class Program
     {
+        public enum EnMenuOptions
+        {
+            CheckIfNumberIsPerfect = 1,
+            FindAllPerfectNumbersInRange = 2,
+            Exit = 3
+        }
         public static int AskUserForNumber(string prompt)
         {
             int number;
@@ -64,10 +70,89 @@ namespace FindPerfectNumber
         {
             Console.WriteLine($"Is {number} a Perfect number? : {IsPerfectNumber(number)}");
         }
-        
+        public static (int, int) AskUserForRange()
+        {
+            while (true)
+            {
+                int start = AskUserForNumber("Enter the start of the range (positive integer): ");
+                int end = AskUserForNumber("Enter the end of the range (positive integer): ");
+                if (start <= end)
+                {
+                    return (start, end);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid range. The start of the range must be less than or equal to the end.");
+                }
+            }
+        }
+        public static List<int> FindAllPerfectNumbersInRange(int start, int end)
+        {
+            List<int> perfectNumbers = new List<int>();
+            for(int i =start; i <= end; i++) 
+            {
+                if(IsPerfectNumber(i))
+                {
+                    perfectNumbers.Add(i);
+                }
+            }
+            return perfectNumbers;
+        }
+        public static void PrintPerfectNumbersInRange(IEnumerable<int> perfectNumbers)
+            {
+            Console.WriteLine("Perfect numbers in the specified range:");
+            foreach (var perfectNumber in perfectNumbers)
+            {
+                Console.WriteLine(perfectNumber);
+            }
+        }
+        public static EnMenuOptions ShowMenu()
+        {
+            Console.WriteLine("Choose an option:");
+            Console.WriteLine("1. Check if a number is perfect");
+            Console.WriteLine("2. Find all perfect numbers in a range");
+            Console.WriteLine("3. Exit");
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out int choice)
+                    && Enum.IsDefined(typeof(EnMenuOptions), choice))
+                {
+                    return (EnMenuOptions)choice;
+                }
+
+                Console.WriteLine("Invalid choice.");
+            }
+        }
+        static void HandleMenuChoice(EnMenuOptions choice)
+        {
+            switch (choice)
+            {
+                case EnMenuOptions.CheckIfNumberIsPerfect:
+                    PrintPerfectNumberCheck(AskUserForNumber("Enter a positive integer: "));
+                    break;
+                case EnMenuOptions.FindAllPerfectNumbersInRange:
+                    var (start, end) = AskUserForRange();
+                    List<int> perfectNumbers = FindAllPerfectNumbersInRange(start, end);
+                    PrintPerfectNumbersInRange(perfectNumbers);
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+
+       
         static void Main(string[] args)
         {
-            PrintPerfectNumberCheck(AskUserForNumber("Enter a positive integer: "));
+            while (true)
+            {
+                var option = ShowMenu();
+
+                if (option == EnMenuOptions.Exit)
+                    break;
+
+                HandleMenuChoice(option);
+            }
         }
     }
 }
