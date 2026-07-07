@@ -86,9 +86,9 @@ namespace Fill_Array_With_Random_Numbers
         {
             Console.WriteLine($"{operationName} : {operation}");
         }
-        public static double CalculateAverage(int[] randomNumbers, int sum)
+        public static double CalculateAverage(int count, int sum)
         {
-            return (double)sum / randomNumbers.Length;
+            return (double)sum / count;
         }
         public static int[] CopyArray(int[] randomNumbers)
         {
@@ -112,40 +112,52 @@ namespace Fill_Array_With_Random_Numbers
             }
             return true;
         }
-        public static int[] FindPrimesCopy(int[] randomNumbers)
+        public static List<int> FindPrimes(int[] randomNumbers)
         {
             List<int> primes = new List<int>();
-            for (int i = 0; i < randomNumbers.Length; i++)
+            foreach (int number in randomNumbers)
             {
-                if (IsPrime(randomNumbers[i]))
-                {
-                    primes.Add(randomNumbers[i]);
-                }
+                if (IsPrime(number))
+                    primes.Add(number);
             }
-            return primes.ToArray();
+            return primes;
         }
-        public static void ShowArray(int[] array, string message)
+        public static void ShowArray(IEnumerable<int> array, string message)
         {
             Console.WriteLine(message);
-            for (int i = 0; i < array.Length; i++)
+            foreach (var item in array)
             {
-                Console.Write($"{array[i],30}");
+                Console.Write($"{item,30}");
             }
             Console.WriteLine();
+        }
+        public static int[] ZipTwoArrays(int[] array1, int[] array2)
+        {
+            int length = array1.Length;
+            int[] zippedArray = new int[length];
+            for (int i = 0; i < length; i++)
+            {
+                zippedArray[i]= array1[i] + array2[i];
+            }
+            if (array1.Length != array2.Length)
+                throw new ArgumentException("Arrays must have the same length");
+            return zippedArray;
         }
         static void Main(string[] args)
         {
             int numberOfElements = NumberOfElements();
             var (min, max) = ReadRange();
             int[] randomNumbers = GenerateRandomNumbers(numberOfElements, min, max);
+            int[] randomNumbers2 = GenerateRandomNumbers(numberOfElements, min, max);
             ShowArray(randomNumbers, "Random Numbers:");
             var (minRandom, maxRandom) = FindMinAndMax(randomNumbers);
             ShowMinAndMax(minRandom, maxRandom);
             int sum = CalculateSum(randomNumbers);
             ShowOperation(sum, "Sum");
-            ShowOperation(CalculateAverage(randomNumbers, sum), "Average");
+            ShowOperation(CalculateAverage(randomNumbers.Length, sum), "Average");
             ShowArray(CopyArray(randomNumbers), "Copy of Random Numbers:");
-            ShowArray(FindPrimesCopy(randomNumbers), "Prime Numbers:");
+            ShowArray(FindPrimes(randomNumbers), "Prime Numbers:");
+            ShowArray(ZipTwoArrays(randomNumbers, randomNumbers2), "Zipped Array (Sum of Two Arrays):");
         }
     }
 }
