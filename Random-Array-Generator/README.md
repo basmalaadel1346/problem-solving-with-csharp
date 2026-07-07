@@ -1,124 +1,127 @@
-# Random Array Generator
+# Fill Array With Random Numbers
 
-## Problem
+A C# console application that generates an array of random integers within a user-defined range, displays the generated values, and efficiently finds the minimum and maximum values using a single traversal.
 
-Write a C# console application that generates an array of random integers within a user-defined range.
+## Features
 
-The program asks the user to:
+- Generate an array of random integers.
+- User-defined array size.
+- User-defined random number range.
+- Automatic normalization of reversed ranges.
+- Input validation with re-prompting for invalid values.
+- Display all generated numbers.
+- Find the minimum and maximum values in a single pass.
+- Clean separation between input, generation, processing, and output.
 
-- Enter the number of elements.
-- Enter the minimum value.
-- Enter the maximum value.
+## Technologies
 
-It then generates and displays the random numbers.
-
----
+- C#
+- .NET Console Application
 
 ## Example
 
-### Input
-
 ```text
-Enter number of elements:
-5
-
-Enter minimum value for range:
+Please enter number of elements
 10
 
-Enter maximum value for range:
-20
-```
+Please enter minimum value for range
+5
 
-### Output
-
-```text
-13
+Please enter max value for range
 20
+
+17
+8
+5
+12
+20
+9
+16
+6
+14
 11
-18
-15
+
+Min : 5
+Max : 20
 ```
 
 > **Note:** The generated numbers are random, so the output will differ each time the program runs.
 
----
+## Project Structure
 
-## Features
+```
+Program.cs
+├── InvalidMessage()
+├── ReadNumber()
+├── NumberOfElements()
+├── ReadRange()
+├── GenerateRandomNumbers()
+├── ShowRandomNumbers()
+├── FindMinAndMaxRandom()
+├── ShowMinAndMaxRandom()
+└── Main()
+```
 
-- Validates all numeric input.
-- Accepts the range in any order and automatically normalizes it.
-- Generates random integers within the specified inclusive range.
-- Stores generated numbers in an array.
-- Separates validation, generation, and output into independent methods.
-
----
-
-## Concepts Used
-
-- Methods
-- Arrays
-- Tuples
-- Random Class
-- Input Validation
-- Loops
-- Clean Code
-- Separation of Concerns
-
----
-
-## Solution Structure
+## Solution Overview
 
 | Method | Responsibility |
 |---------|----------------|
+| `InvalidMessage()` | Displays an invalid input message. |
 | `ReadNumber()` | Reads and validates a non-negative integer. |
 | `NumberOfElements()` | Reads the desired array size. |
 | `ReadRange()` | Reads and normalizes the minimum and maximum values. |
-| `GenerateRandomNumbers()` | Generates an array of random integers within the specified range. |
+| `GenerateRandomNumbers()` | Generates random integers within the specified range. |
 | `ShowRandomNumbers()` | Displays the generated numbers. |
+| `FindMinAndMaxRandom()` | Finds the minimum and maximum values using a single traversal. |
+| `ShowMinAndMaxRandom()` | Displays the minimum and maximum values. |
 
----
+## Algorithm
 
-## Random Number Generation Algorithm
-
-The algorithm works as follows:
+### Random Number Generation
 
 1. Read the number of elements.
 2. Read the minimum and maximum values.
-3. Normalize the range if the values are entered in reverse order.
-4. Create an array of the requested size.
-5. Generate a random number for each element.
-6. Display all generated numbers.
+3. Normalize the range if entered in reverse order.
+4. Generate random integers within the inclusive range.
+5. Store the generated values in an array.
 
----
+### Min/Max Search
+
+1. Initialize both `min` and `max` with the first array element.
+2. Traverse the array once.
+3. Update `min` whenever a smaller value is found.
+4. Update `max` whenever a larger value is found.
+5. Return both values as a named tuple.
 
 ## Complexity
 
-### GenerateRandomNumbers()
-
-**Time:** `O(n)`
-
-**Space:** `O(n)`
-
-### ShowRandomNumbers()
-
-**Time:** `O(n)`
-
-**Space:** `O(1)`
-
-### Overall Program
-
-**Time:** `O(n)`
-
-**Space:** `O(n)`
+| Operation | Time Complexity | Space Complexity |
+|----------|----------------:|-----------------:|
+| Generate Random Numbers | **O(n)** | **O(n)** |
+| Display Numbers | **O(n)** | **O(1)** |
+| Find Min & Max | **O(n)** | **O(1)** |
+| Overall Program | **O(n)** | **O(n)** |
 
 Where **n** is the number of generated elements.
 
----
+## Concepts Practiced
+
+- Arrays
+- Methods
+- Loops
+- Tuples
+- Random Class
+- Input Validation
+- Linear Search
+- Time Complexity Analysis
+- Clean Code
+- Separation of Concerns
 
 ## Engineering Notes
 
-- Followed the **Single Responsibility Principle (SRP)** by separating validation, range handling, random generation, and output.
-- Used a single shared `Random` instance to avoid generating repeated random sequences.
-- Used a named tuple to return the range values with improved readability.
-- Generated numbers using an inclusive range by adjusting the upper bound when calling `Random.Next()`.
-- Stored generated values in an array for efficient sequential access.
+- Implemented a single shared `Random` instance to ensure efficient random number generation.
+- Used named tuples to improve readability when returning multiple values.
+- Found the minimum and maximum values in a single traversal for optimal **O(n)** time complexity.
+- Organized the program into small, reusable methods following the **Single Responsibility Principle (SRP)**.
+- Normalized the user-defined range to support input in any order.
+```

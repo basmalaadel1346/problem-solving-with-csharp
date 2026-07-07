@@ -17,11 +17,21 @@ namespace Fill_Array_With_Random_Numbers
             {
                 Console.WriteLine(message);
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out int value) && value >= 0) { return value; }
+                if (int.TryParse(input, out int value)) { return value; }
                 InvalidMessage();
             } while (true);
         }
-        public static int NumberOfElements() => ReadNumber("Please enter number of elements");
+        public static int NumberOfElements()
+        {
+            do
+            {
+                int number = 0;
+                number = ReadNumber("Please enter number of elements");
+                if (number > 0) return number;
+                InvalidMessage();
+            }
+            while (true);
+        }
         public static (int min, int max) ReadRange()
 
         {
@@ -52,11 +62,32 @@ namespace Fill_Array_With_Random_Numbers
                 Console.WriteLine(randomNumber[i]);
             }
         }
+        public static (int min, int max) FindMinAndMax(int[] randomNumbers)
+        {
+            int min = randomNumbers[0];
+            int max = randomNumbers[0];
+            for (int i = 1; i < randomNumbers.Length; i++)
+            {
+                if (randomNumbers[i] > max)
+                    max = randomNumbers[i];
+
+                if (randomNumbers[i] < min)
+                    min = randomNumbers[i];
+            }
+            return (min, max);
+        }
+        public static void ShowMinAndMax(int min, int max)
+        {
+            Console.WriteLine($"Min : {min} and Max : {max}");
+        }
         static void Main(string[] args)
         {
             int numberOfElements = NumberOfElements();
             var (min, max) = ReadRange();
-            ShowRandomNumbers(GenerateRandomNumbers(numberOfElements, min, max));
+            int[] randomNumbers = GenerateRandomNumbers(numberOfElements, min, max);
+            ShowRandomNumbers(randomNumbers);
+            var (minRandom, maxRandom) = FindMinAndMax(randomNumbers);
+            ShowMinAndMax(minRandom, maxRandom);
         }
     }
 }
