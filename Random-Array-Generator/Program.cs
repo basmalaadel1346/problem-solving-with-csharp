@@ -55,13 +55,6 @@ namespace Fill_Array_With_Random_Numbers
             }
             return randomNumbers;
         }
-        public static void ShowRandomNumbers(int[] randomNumber)
-        {
-            for (int i = 0; i < randomNumber.Length; i++)
-            {
-                Console.WriteLine(randomNumber[i]);
-            }
-        }
         public static (int min, int max) FindMinAndMax(int[] randomNumbers)
         {
             int min = randomNumbers[0];
@@ -80,14 +73,79 @@ namespace Fill_Array_With_Random_Numbers
         {
             Console.WriteLine($"Min : {min} and Max : {max}");
         }
+        public static int CalculateSum(int[] randomNumbers)
+        {
+            int sum = 0;
+            for (int i = 0; i < randomNumbers.Length; i++)
+            {
+                sum += randomNumbers[i];
+            }
+            return sum;
+        }
+        public static void ShowOperation<T>(T operation, string operationName)
+        {
+            Console.WriteLine($"{operationName} : {operation}");
+        }
+        public static double CalculateAverage(int[] randomNumbers, int sum)
+        {
+            return (double)sum / randomNumbers.Length;
+        }
+        public static int[] CopyArray(int[] randomNumbers)
+        {
+            int[] copy = new int[randomNumbers.Length];
+            for (int i = 0; i < randomNumbers.Length; i++)
+            {
+                copy[i] = randomNumbers[i];
+            }
+            return copy;
+        }
+        
+        public static bool IsPrime(int number)
+        {
+            if (number <= 1) return false;
+            if (number <= 3) return true;
+            if (number % 2 == 0 || number % 3 == 0) return false;
+            for (int i = 5; i * i <= number; i += 6)
+            {
+                if (number % i == 0 || number % (i + 2) == 0)
+                    return false;
+            }
+            return true;
+        }
+        public static int[] FindPrimesCopy(int[] randomNumbers)
+        {
+            List<int> primes = new List<int>();
+            for (int i = 0; i < randomNumbers.Length; i++)
+            {
+                if (IsPrime(randomNumbers[i]))
+                {
+                    primes.Add(randomNumbers[i]);
+                }
+            }
+            return primes.ToArray();
+        }
+        public static void ShowArray(int[] array, string message)
+        {
+            Console.WriteLine(message);
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write($"{array[i],30}");
+            }
+            Console.WriteLine();
+        }
         static void Main(string[] args)
         {
             int numberOfElements = NumberOfElements();
             var (min, max) = ReadRange();
             int[] randomNumbers = GenerateRandomNumbers(numberOfElements, min, max);
-            ShowRandomNumbers(randomNumbers);
+            ShowArray(randomNumbers, "Random Numbers:");
             var (minRandom, maxRandom) = FindMinAndMax(randomNumbers);
             ShowMinAndMax(minRandom, maxRandom);
+            int sum = CalculateSum(randomNumbers);
+            ShowOperation(sum, "Sum");
+            ShowOperation(CalculateAverage(randomNumbers, sum), "Average");
+            ShowArray(CopyArray(randomNumbers), "Copy of Random Numbers:");
+            ShowArray(FindPrimesCopy(randomNumbers), "Prime Numbers:");
         }
     }
 }
