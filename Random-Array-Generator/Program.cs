@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -122,7 +123,7 @@ namespace Fill_Array_With_Random_Numbers
             }
             return primes;
         }
-        public static void ShowArray(IEnumerable<int> array, string message)
+        public static void ShowArray(IReadOnlyCollection<int> array, string message)
         {
             Console.WriteLine(message);
             Console.WriteLine();
