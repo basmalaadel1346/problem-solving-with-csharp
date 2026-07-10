@@ -125,23 +125,52 @@ namespace Fill_Array_With_Random_Numbers
         public static void ShowArray(IEnumerable<int> array, string message)
         {
             Console.WriteLine(message);
+            Console.WriteLine();
             foreach (var item in array)
             {
-                Console.Write($"{item,30}");
+                Console.Write($"{item,10}");
             }
+            Console.WriteLine("\n");
+            Console.WriteLine(new string('*', (array.Count())*10));
             Console.WriteLine();
+
         }
         public static int[] ZipTwoArrays(int[] array1, int[] array2)
         {
             int length = array1.Length;
             int[] zippedArray = new int[length];
+            if (array1.Length != array2.Length)
+                throw new ArgumentException("Arrays must have the same length");
             for (int i = 0; i < length; i++)
             {
                 zippedArray[i]= array1[i] + array2[i];
             }
-            if (array1.Length != array2.Length)
-                throw new ArgumentException("Arrays must have the same length");
+            
             return zippedArray;
+        }
+        public static int[] ReverseArray(int[] array)
+        {
+            int length = array.Length;
+            int[] reversedArray = new int[length];
+            for (int i = 0; i < length; i++)
+            {
+                reversedArray[i] = array[length - 1 - i];
+            }
+            return reversedArray;
+        }
+        public static void Swap(ref int a, ref int b)
+        {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+        public static void ReverseArrayInPlace(int[] array)
+        {
+            int length = array.Length;
+            for (int i = 0; i < length / 2; i++)
+            {
+                Swap(ref array[i], ref array[length - 1 - i]);
+            }
         }
         static void Main(string[] args)
         {
@@ -157,7 +186,11 @@ namespace Fill_Array_With_Random_Numbers
             ShowOperation(CalculateAverage(randomNumbers.Length, sum), "Average");
             ShowArray(CopyArray(randomNumbers), "Copy of Random Numbers:");
             ShowArray(FindPrimes(randomNumbers), "Prime Numbers:");
+            ShowArray(randomNumbers2, "Random Numbers 2:");
             ShowArray(ZipTwoArrays(randomNumbers, randomNumbers2), "Zipped Array (Sum of Two Arrays):");
+            ShowArray(ReverseArray(randomNumbers), "Reversed Array:");
+            ReverseArrayInPlace(randomNumbers);
+            ShowArray(randomNumbers, "Reversed Array In Place:");
         }
     }
 }
