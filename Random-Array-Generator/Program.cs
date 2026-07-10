@@ -173,6 +173,15 @@ namespace Fill_Array_With_Random_Numbers
                 Swap(ref array[i], ref array[length - 1 - i]);
             }
         }
+        public static int FindIndexOf(int[] array, int value)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == value)
+                    return i;
+            }
+            return -1; // Return -1 if the value is not found
+        }
         static void Main(string[] args)
         {
             int numberOfElements = NumberOfElements();
@@ -190,6 +199,8 @@ namespace Fill_Array_With_Random_Numbers
             ShowArray(randomNumbers2, "Random Numbers 2:");
             ShowArray(ZipTwoArrays(randomNumbers, randomNumbers2), "Zipped Array (Sum of Two Arrays):");
             ShowArray(ReverseArray(randomNumbers), "Reversed Array:");
+           int index =  FindIndexOf(randomNumbers, ReadNumber("please enter a number to find its index: "));
+            ShowOperation(index, "Index"); if(index == -1) Console.WriteLine("Value not found in the array");
             ReverseArrayInPlace(randomNumbers);
             ShowArray(randomNumbers, "Reversed Array In Place:");
         }
