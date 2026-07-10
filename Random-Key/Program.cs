@@ -5,7 +5,7 @@ namespace prob21
 {
     internal class Program
     {
-        private static readonly Random random = new Random();
+        private static readonly Random _random = new Random();
 
         public enum KeyType
         {
@@ -35,7 +35,7 @@ namespace prob21
             StringBuilder word = new StringBuilder(length);
             for (int i = 0; i < length; i++)
             {
-                word.Append((char)random.Next(from, to + 1));
+                word.Append((char)_random.Next(from, to + 1));
             }
             return word.ToString();
         }
@@ -54,7 +54,7 @@ namespace prob21
 
             return key.ToString();
         }
-
+        // way with StringBuilder
         public static string MakeKeys(int count, int partsCount = 4, int partLength = 4, KeyType keyType = KeyType.Numeric)
         {
             StringBuilder keys = new StringBuilder();
@@ -65,7 +65,27 @@ namespace prob21
             }
             return keys.ToString();
         }
-
+        // Alternative implementation using array for comparison.
+        /*public static string[] MakeKeys(int count, int partsCount = 4, int partLength = 4, KeyType keyType = KeyType.Numeric)
+        {
+            string[] keys = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                keys[i] = MakeKey(partsCount, partLength, keyType);
+            }
+            return keys;
+        }*/
+        // Alternative implementation using string.Join for comparison.
+        /*
+        public static string MakeKeysString(int count, int partsCount = 4, int partLength = 4, KeyType keyType = KeyType.Numeric)
+        {
+            string[] keys = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                keys[i] = MakeKey(partsCount, partLength, keyType);
+            }
+            return string.Join(Environment.NewLine, keys);
+        }*/
         public static KeyType AskForKeyType()
         {
             Console.WriteLine("Enter the key type (numeric, alphaSmall, alphaCapital):");
@@ -82,18 +102,20 @@ namespace prob21
             }
         }
 
-        public static int AskForNumOfKeys()
+        public static int AskForNumber(string message, string errorMessage)
         {
-            Console.WriteLine("Enter the number of keys to generate:");
-            string input = Console.ReadLine();
-
-            if (int.TryParse(input, out int numOfKeys) && numOfKeys > 0)
+            while (true)
             {
-                return numOfKeys;
-            }
+                Console.WriteLine(message);
+                string input = Console.ReadLine();
 
-            Console.WriteLine("Invalid number. Defaulting to 1 key.");
-            return 1;
+                if (int.TryParse(input, out int number))
+                {
+                    return number;
+                }
+
+                Console.WriteLine(errorMessage);
+            }
         }
 
         public static void WelcomeMessage()
@@ -113,7 +135,7 @@ namespace prob21
         {
             WelcomeMessage();
 
-            int numOfKeys = AskForNumOfKeys();
+            int numOfKeys = AskForNumber("Enter number of keys", "Invalid number.");
             KeyType type = AskForKeyType();
 
             ShowGeneratedKeys(numOfKeys, type);
