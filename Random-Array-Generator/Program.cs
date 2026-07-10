@@ -132,7 +132,7 @@ namespace Fill_Array_With_Random_Numbers
                 Console.Write($"{item,10}");
             }
             Console.WriteLine("\n");
-            Console.WriteLine(new string('*', (array.Count())*10));
+            Console.WriteLine(new string('*', (array.Count)*10));
             Console.WriteLine();
 
         }
@@ -182,6 +182,15 @@ namespace Fill_Array_With_Random_Numbers
             }
             return -1; // Return -1 if the value is not found
         }
+       public static void ShowSearchResult(int index)
+        {
+            if(index != -1)
+                Console.WriteLine($"Value found at index {index}");
+            else
+                Console.WriteLine($"Value not found in the array"); 
+          Console.WriteLine();
+        }
+
         static void Main(string[] args)
         {
             int numberOfElements = NumberOfElements();
@@ -199,8 +208,9 @@ namespace Fill_Array_With_Random_Numbers
             ShowArray(randomNumbers2, "Random Numbers 2:");
             ShowArray(ZipTwoArrays(randomNumbers, randomNumbers2), "Zipped Array (Sum of Two Arrays):");
             ShowArray(ReverseArray(randomNumbers), "Reversed Array:");
-           int index =  FindIndexOf(randomNumbers, ReadNumber("please enter a number to find its index: "));
-            ShowOperation(index, "Index"); if(index == -1) Console.WriteLine("Value not found in the array");
+            int valueToFind = ReadNumber("please enter a number to find its index: ");
+           int index =  FindIndexOf(randomNumbers, valueToFind);
+            ShowSearchResult(index);
             ReverseArrayInPlace(randomNumbers);
             ShowArray(randomNumbers, "Reversed Array In Place:");
         }
