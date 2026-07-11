@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fill_Array_With_Random_Numbers
+namespace CSharp_Array_Algorithms
 {
     internal class Program
     {
