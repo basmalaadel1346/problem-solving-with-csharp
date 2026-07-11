@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,24 +15,23 @@ namespace CSharp_Array_Algorithms
 
         public static int ReadNumber(string message)
         {
-            do
+            while (true) 
             {
                 Console.WriteLine(message);
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out int value)) { return value; }
                 InvalidMessage();
-            } while (true);
+            } 
         }
         public static int NumberOfElements()
         {
-            do
+            while (true)
             {
-                int number = 0;
-                number = ReadNumber("Please enter number of elements");
+                int number = ReadNumber("Please enter number of elements");
                 if (number > 0) return number;
                 InvalidMessage();
             }
-            while (true);
+            
         }
         public static (int min, int max) ReadRange()
 
@@ -69,10 +69,6 @@ namespace CSharp_Array_Algorithms
                     min = randomNumbers[i];
             }
             return (min, max);
-        }
-        public static void ShowMinAndMax(int min, int max)
-        {
-            Console.WriteLine($"Min : {min} and Max : {max}");
         }
         public static int CalculateSum(int[] randomNumbers)
         {
@@ -138,10 +134,10 @@ namespace CSharp_Array_Algorithms
         }
         public static int[] ZipTwoArrays(int[] array1, int[] array2)
         {
-            int length = array1.Length;
-            int[] zippedArray = new int[length];
             if (array1.Length != array2.Length)
                 throw new ArgumentException("Arrays must have the same length");
+            int length = array1.Length;
+            int[] zippedArray = new int[length];
             for (int i = 0; i < length; i++)
             {
                 zippedArray[i]= array1[i] + array2[i];
@@ -190,7 +186,20 @@ namespace CSharp_Array_Algorithms
                 Console.WriteLine($"Value not found in the array"); 
           Console.WriteLine();
         }
+        public static bool IsNumberInArray(int[] array, int value)
+        {
+            return FindIndexOf(array, value) != -1;
+        }
+        public static int[] FindDistinct(int[] array)
+        {
+            HashSet<int> distinctNumbers = new HashSet<int>();
+            foreach (int number in array)
+            {
+                distinctNumbers.Add(number);
+            }
+            return distinctNumbers.ToArray();
 
+        }
         static void Main(string[] args)
         {
             int numberOfElements = NumberOfElements();
@@ -199,7 +208,8 @@ namespace CSharp_Array_Algorithms
             int[] randomNumbers2 = GenerateRandomNumbers(numberOfElements, min, max);
             ShowArray(randomNumbers, "Random Numbers:");
             var (minRandom, maxRandom) = FindMinAndMax(randomNumbers);
-            ShowMinAndMax(minRandom, maxRandom);
+            ShowOperation(minRandom, "Min");
+            ShowOperation(maxRandom, "Max");
             int sum = CalculateSum(randomNumbers);
             ShowOperation(sum, "Sum");
             ShowOperation(CalculateAverage(randomNumbers.Length, sum), "Average");
@@ -213,6 +223,7 @@ namespace CSharp_Array_Algorithms
             ShowSearchResult(index);
             ReverseArrayInPlace(randomNumbers);
             ShowArray(randomNumbers, "Reversed Array In Place:");
+            ShowArray(FindDistinct(randomNumbers), "Distinct Numbers:");
         }
     }
 }
