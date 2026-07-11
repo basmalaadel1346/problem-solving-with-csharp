@@ -186,10 +186,6 @@ namespace CSharp_Array_Algorithms
                 Console.WriteLine($"Value not found in the array"); 
           Console.WriteLine();
         }
-        public static bool IsNumberInArray(int[] array, int value)
-        {
-            return FindIndexOf(array, value) != -1;
-        }
         public static int[] FindDistinct(int[] array)
         {
             HashSet<int> distinctNumbers = new HashSet<int>();
