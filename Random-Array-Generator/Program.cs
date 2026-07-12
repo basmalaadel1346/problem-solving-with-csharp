@@ -15,13 +15,13 @@ namespace CSharp_Array_Algorithms
 
         public static int ReadNumber(string message)
         {
-            while (true) 
+            while (true)
             {
                 Console.WriteLine(message);
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out int value)) { return value; }
                 InvalidMessage();
-            } 
+            }
         }
         public static int NumberOfElements()
         {
@@ -31,22 +31,22 @@ namespace CSharp_Array_Algorithms
                 if (number > 0) return number;
                 InvalidMessage();
             }
-            
+
         }
         public static (int min, int max) ReadRange()
 
         {
-                int min = ReadNumber("Please enter minimum value for range");
-                int max = ReadNumber("Please enter max value for range");
-                return (Math.Min(min, max), Math.Max(min, max));           
-        } 
+            int min = ReadNumber("Please enter minimum value for range");
+            int max = ReadNumber("Please enter max value for range");
+            return (Math.Min(min, max), Math.Max(min, max));
+        }
 
         public static int[] GenerateRandomNumbers(int numberOfElements, int min, int max)
         {
             int[] randomNumbers = new int[numberOfElements];
             for (int i = 0; i < numberOfElements; i++)
             {
-                randomNumbers[i] = _random.Next(min, max+1);
+                randomNumbers[i] = _random.Next(min, max + 1);
             }
             return randomNumbers;
         }
@@ -91,7 +91,7 @@ namespace CSharp_Array_Algorithms
             }
             return copy;
         }
-        
+
         public static bool IsPrime(int number)
         {
             if (number <= 1) return false;
@@ -133,9 +133,9 @@ namespace CSharp_Array_Algorithms
             int[] zippedArray = new int[length];
             for (int i = 0; i < length; i++)
             {
-                zippedArray[i]= array1[i] + array2[i];
+                zippedArray[i] = array1[i] + array2[i];
             }
-            
+
             return zippedArray;
         }
         public static int[] ReverseArray(IReadOnlyList<int> array)
@@ -171,13 +171,13 @@ namespace CSharp_Array_Algorithms
             }
             return -1; // Return -1 if the value is not found
         }
-       public static void ShowSearchResult(int index)
+        public static void ShowSearchResult(int index)
         {
             if (index >= 0)
                 Console.WriteLine($"Value found at index {index}");
             else
-                Console.WriteLine($"Value not found in the array"); 
-          Console.WriteLine();
+                Console.WriteLine($"Value not found in the array");
+            Console.WriteLine();
         }
         public static int[] FindDistinct(IReadOnlyList<int> array)
         {
@@ -200,8 +200,82 @@ namespace CSharp_Array_Algorithms
             }
             return true;
         }
+        public static bool IsOdd(int number) => number % 2 != 0;
+        
+        public static (List<int> oddNumbers, List<int> evenNumbers) FindOddAndEvenNumbers(IReadOnlyList<int> numbers)
+        {
+            List<int> oddNumbers = new List<int>();
+            List<int> evenNumbers = new List<int>();
+            foreach (int number in numbers)
+            {
+                if (IsOdd(number))
+                {
+                    oddNumbers.Add(number);
+                }
+                else { 
+                    evenNumbers.Add(number);
+                }
+            }
+            return (oddNumbers, evenNumbers);
+        }
+// Counts odd and even numbers.
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+        public static (int oddCount, int evenCount, int positiveCount, int negativeCount) GetNumberStatistics(IReadOnlyList<int> numbers)
+        {
+            int oddCount = 0;
+            int evenCount = 0;
+            int positiveCount=0;
+            int negativeCount = 0;
 
+            foreach (int number in numbers)
+            {
+                if (IsOdd(number))
+                {
+                    oddCount++;
+                }
+                else 
+                {
+                    evenCount++;
+                }
 
+                if (number > 0)
+                {
+                    positiveCount++;
+                }
+                else if (number < 0)
+                {
+                    negativeCount++;
+                }
+            }
+            return (oddCount, evenCount, positiveCount, negativeCount);
+        }
+// Alternative implementation that reuses FindOddAndEvenNumbers().
+// Time Complexity: O(n)
+// Space Complexity: O(n) because two lists are allocated.
+/* public static (int oddCount,int evenCount) FindCountOfNumbers(IReadOnlyList<int> numbers)  
+         * {
+         *     var (oddNumbers, evenNumbers) = FindOddAndEvenNumbers(numbers);
+         *     return (oddNumbers.Count, evenNumbers.Count);
+         * }
+        */
+        public static int AbsoluteValue(int number)
+        {
+            if (number < 0)
+            {
+                return -number;
+            }
+            return number;
+        }
+        public static int[] FindAbsoluteValues(IReadOnlyList<int> numbers)
+        {
+            int[] absoluteValues = new int[numbers.Count];
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                absoluteValues[i] = AbsoluteValue(numbers[i]);
+            }
+            return absoluteValues;
+        }
         static void Main(string[] args)
         {
             int numberOfElements = NumberOfElements();
@@ -221,12 +295,21 @@ namespace CSharp_Array_Algorithms
             ShowArray(ZipTwoArrays(randomNumbers, randomNumbers2), "Zipped Array (Sum of Two Arrays):");
             ShowArray(ReverseArray(randomNumbers), "Reversed Array:");
             int valueToFind = ReadNumber("please enter a number to find its index: ");
-           int index =  FindIndexOf(randomNumbers, valueToFind);
+            int index = FindIndexOf(randomNumbers, valueToFind);
             ShowSearchResult(index);
             ReverseArrayInPlace(randomNumbers);
             ShowArray(randomNumbers, "Reversed Array In Place:");
             ShowArray(FindDistinct(randomNumbers), "Distinct Numbers:");
             ShowOperation(IsPalindrome(randomNumbers) ? "yes" : "no", "Is Palindrome");
+            var (oddNumbers, evenNumbers) = FindOddAndEvenNumbers(randomNumbers);
+            ShowArray(oddNumbers, "Odd Numbers:");
+            ShowArray(evenNumbers, "Even Numbers:");
+            var (oddCount, evenCount, positiveCount, negativeCount) = GetNumberStatistics(randomNumbers);
+            ShowOperation(oddCount, "Count of Odd Numbers:");
+            ShowOperation(evenCount, "Count of Even Numbers:");
+            ShowOperation(positiveCount, "Count of Positive Numbers:");
+            ShowOperation(negativeCount, "Count of Negative Numbers:");
+            ShowArray(FindAbsoluteValues(randomNumbers), "Absolute Values:");
         }
     }
 }
