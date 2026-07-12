@@ -15,13 +15,13 @@ namespace CSharp_Array_Algorithms
 
         public static int ReadNumber(string message)
         {
-            while (true) 
+            while (true)
             {
                 Console.WriteLine(message);
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out int value)) { return value; }
                 InvalidMessage();
-            } 
+            }
         }
         public static int NumberOfElements()
         {
@@ -31,22 +31,22 @@ namespace CSharp_Array_Algorithms
                 if (number > 0) return number;
                 InvalidMessage();
             }
-            
+
         }
         public static (int min, int max) ReadRange()
 
         {
-                int min = ReadNumber("Please enter minimum value for range");
-                int max = ReadNumber("Please enter max value for range");
-                return (Math.Min(min, max), Math.Max(min, max));           
-        } 
+            int min = ReadNumber("Please enter minimum value for range");
+            int max = ReadNumber("Please enter max value for range");
+            return (Math.Min(min, max), Math.Max(min, max));
+        }
 
         public static int[] GenerateRandomNumbers(int numberOfElements, int min, int max)
         {
             int[] randomNumbers = new int[numberOfElements];
             for (int i = 0; i < numberOfElements; i++)
             {
-                randomNumbers[i] = _random.Next(min, max+1);
+                randomNumbers[i] = _random.Next(min, max + 1);
             }
             return randomNumbers;
         }
@@ -91,7 +91,7 @@ namespace CSharp_Array_Algorithms
             }
             return copy;
         }
-        
+
         public static bool IsPrime(int number)
         {
             if (number <= 1) return false;
@@ -133,9 +133,9 @@ namespace CSharp_Array_Algorithms
             int[] zippedArray = new int[length];
             for (int i = 0; i < length; i++)
             {
-                zippedArray[i]= array1[i] + array2[i];
+                zippedArray[i] = array1[i] + array2[i];
             }
-            
+
             return zippedArray;
         }
         public static int[] ReverseArray(IReadOnlyList<int> array)
@@ -171,13 +171,13 @@ namespace CSharp_Array_Algorithms
             }
             return -1; // Return -1 if the value is not found
         }
-       public static void ShowSearchResult(int index)
+        public static void ShowSearchResult(int index)
         {
             if (index >= 0)
                 Console.WriteLine($"Value found at index {index}");
             else
-                Console.WriteLine($"Value not found in the array"); 
-          Console.WriteLine();
+                Console.WriteLine($"Value not found in the array");
+            Console.WriteLine();
         }
         public static int[] FindDistinct(IReadOnlyList<int> array)
         {
@@ -221,7 +221,7 @@ namespace CSharp_Array_Algorithms
             ShowArray(ZipTwoArrays(randomNumbers, randomNumbers2), "Zipped Array (Sum of Two Arrays):");
             ShowArray(ReverseArray(randomNumbers), "Reversed Array:");
             int valueToFind = ReadNumber("please enter a number to find its index: ");
-           int index =  FindIndexOf(randomNumbers, valueToFind);
+            int index = FindIndexOf(randomNumbers, valueToFind);
             ShowSearchResult(index);
             ReverseArrayInPlace(randomNumbers);
             ShowArray(randomNumbers, "Reversed Array In Place:");
