@@ -200,8 +200,55 @@ namespace CSharp_Array_Algorithms
             }
             return true;
         }
+        public static bool IsOdd(int number) => number % 2 != 0;
+        
+        public static (List<int> oddNumbers, List<int> evenNumbers) FindOddAndEvenNumbers(IReadOnlyList<int> numbers)
+        {
+            List<int> oddNumbers = new List<int>();
+            List<int> evenNumbers = new List<int>();
+            foreach (int number in numbers)
+            {
+                if (IsOdd(number))
+                {
+                    oddNumbers.Add(number);
+                }
+                else { 
+                    evenNumbers.Add(number);
+                }
+            }
+            return (oddNumbers, evenNumbers);
+        }
+// Counts odd and even numbers.
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+        public static (int oddCount, int evenCount) CountOddAndEven(IReadOnlyList<int> numbers)
+        {
+            int oddCount = 0;
+            int evenCount = 0;
 
+            foreach (int number in numbers)
+            {
+                if (IsOdd(number))
+                {
+                    oddCount++;
+                }
+                else
+                {
+                    evenCount++;
+                }
+            }
 
+            return (oddCount, evenCount);
+        }
+// Alternative implementation that reuses FindOddAndEvenNumbers().
+// Time Complexity: O(n)
+// Space Complexity: O(n) because two lists are allocated.
+/* public static (int oddCount,int evenCount) FindCountOfNumbers(IReadOnlyList<int> numbers)  
+         * {
+         *     var (oddNumbers, evenNumbers) = FindOddAndEvenNumbers(numbers);
+         *     return (oddNumbers.Count, evenNumbers.Count);
+         * }
+        */
         static void Main(string[] args)
         {
             int numberOfElements = NumberOfElements();
@@ -227,6 +274,12 @@ namespace CSharp_Array_Algorithms
             ShowArray(randomNumbers, "Reversed Array In Place:");
             ShowArray(FindDistinct(randomNumbers), "Distinct Numbers:");
             ShowOperation(IsPalindrome(randomNumbers) ? "yes" : "no", "Is Palindrome");
+            var (oddNumbers, evenNumbers) = FindOddAndEvenNumbers(randomNumbers);
+            ShowArray(oddNumbers, "Odd Numbers:");
+            ShowArray(evenNumbers, "Even Numbers:");
+            var (oddCount, evenCount) = CountOddAndEven(randomNumbers);
+            ShowOperation(oddCount, "Count of Odd Numbers:");
+            ShowOperation(evenCount, "Count of Even Numbers:");
         }
     }
 }
