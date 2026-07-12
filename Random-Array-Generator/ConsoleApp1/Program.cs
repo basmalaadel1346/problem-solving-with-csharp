@@ -221,10 +221,12 @@ namespace CSharp_Array_Algorithms
 // Counts odd and even numbers.
 // Time Complexity: O(n)
 // Space Complexity: O(1)
-        public static (int oddCount, int evenCount) CountOddAndEven(IReadOnlyList<int> numbers)
+        public static (int oddCount, int evenCount, int positiveCount, int negativeCount) GetNumberStatistics(IReadOnlyList<int> numbers)
         {
             int oddCount = 0;
             int evenCount = 0;
+            int positiveCount=0;
+            int negativeCount = 0;
 
             foreach (int number in numbers)
             {
@@ -232,13 +234,21 @@ namespace CSharp_Array_Algorithms
                 {
                     oddCount++;
                 }
-                else
+                else 
                 {
                     evenCount++;
                 }
-            }
 
-            return (oddCount, evenCount);
+                if (number > 0)
+                {
+                    positiveCount++;
+                }
+                else if (number < 0)
+                {
+                    negativeCount++;
+                }
+            }
+            return (oddCount, evenCount, positiveCount, negativeCount);
         }
 // Alternative implementation that reuses FindOddAndEvenNumbers().
 // Time Complexity: O(n)
@@ -249,6 +259,23 @@ namespace CSharp_Array_Algorithms
          *     return (oddNumbers.Count, evenNumbers.Count);
          * }
         */
+        public static int AbsoluteValue(int number)
+        {
+            if (number < 0)
+            {
+                return -number;
+            }
+            return number;
+        }
+        public static int[] FindAbsoluteValues(IReadOnlyList<int> numbers)
+        {
+            int[] absoluteValues = new int[numbers.Count];
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                absoluteValues[i] = AbsoluteValue(numbers[i]);
+            }
+            return absoluteValues;
+        }
         static void Main(string[] args)
         {
             int numberOfElements = NumberOfElements();
@@ -277,9 +304,12 @@ namespace CSharp_Array_Algorithms
             var (oddNumbers, evenNumbers) = FindOddAndEvenNumbers(randomNumbers);
             ShowArray(oddNumbers, "Odd Numbers:");
             ShowArray(evenNumbers, "Even Numbers:");
-            var (oddCount, evenCount) = CountOddAndEven(randomNumbers);
+            var (oddCount, evenCount, positiveCount, negativeCount) = GetNumberStatistics(randomNumbers);
             ShowOperation(oddCount, "Count of Odd Numbers:");
             ShowOperation(evenCount, "Count of Even Numbers:");
+            ShowOperation(positiveCount, "Count of Positive Numbers:");
+            ShowOperation(negativeCount, "Count of Negative Numbers:");
+            ShowArray(FindAbsoluteValues(randomNumbers), "Absolute Values:");
         }
     }
 }
